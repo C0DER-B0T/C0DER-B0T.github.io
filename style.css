@@ -1,4 +1,7 @@
 /* Reset & Base */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ... baaki sab CSS code jaisa upar diya gaya ... */
+
 * {
     margin: 0;
     padding: 0;
