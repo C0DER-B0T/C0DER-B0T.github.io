@@ -1,12 +1,5 @@
 /* Reset & Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-/* ... baaki sab CSS code jaisa upar diya gaya ... */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 body {
     font-family: 'Poppins', sans-serif;
     background: #000;
@@ -71,14 +64,7 @@ hr {
 }
 /* Responsive */
 @media (max-width: 480px) {
-    .container {
-        padding: 25px;
-    }
-    h1 {
-        font-size: 1.8rem;
-    }
-    .links a {
-        font-size: 0.95rem;
-        padding: 12px 18px;
-    }
+    .container { padding: 25px; }
+    h1 { font-size: 1.8rem; }
+    .links a { font-size: 0.95rem; padding: 12px 18px; }
 }
