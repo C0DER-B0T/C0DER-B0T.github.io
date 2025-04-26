@@ -1,0 +1,413 @@
+:root {
+  --bg: #111;
+  --fg: #e0c97e;
+  --card-bg: #222;
+  --btn-bg: #ffdb63;
+  --btn-hover: #d1b060;
+  
+  /* Icon Colors */
+  --icon-edit: #ffdb63;
+  --icon-delete: #ffdb63;
+  --icon-add: #ffdb63;
+  --icon-info: #ffdb63;
+  --icon-download: #ffdb63;
+}
+
+[data-theme='light'] {
+  --bg: #fafafa;
+  --fg: #333;
+  --card-bg: #fff;
+  --btn-bg: #333;
+  --btn-hover: #555;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+.controls {
+  position: relative;
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrapper i {
+  position: absolute;
+  left: 10px;
+  color: var(--fg);
+  opacity: 0.7;
+}
+
+.controls input {
+  padding: 8px 8px 8px 32px;
+  border: 1px solid var(--fg);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--fg);
+  width: 200px;
+}
+
+nav#layoutTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+nav#layoutTabs button {
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+nav#layoutTabs button.active,
+nav#layoutTabs button:hover {
+  background: var(--btn-bg);
+  color: var(--bg);
+}
+
+.layout-box {
+  border: 2px solid var(--fg);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 0 20px 20px;
+  transition: all 0.3s ease;
+}
+
+main#cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+  gap: 15px;
+}
+
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--fg);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.card strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.card a {
+  color: var(--btn-bg);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.card .remove-btn {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--icon-delete);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.card .remove-btn:hover {
+  background-color: #d32f2f;
+}
+
+body.remove-mode .card .remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#snackbar {
+  visibility: hidden;
+  opacity: 0;
+  min-width: 250px;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 12px;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: visibility 0s 0.3s, opacity 0.3s;
+}
+
+#snackbar.show {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+#snackbar button {
+  background: transparent;
+  border: none;
+  color: var(--icon-add);
+  cursor: pointer;
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#fabMain {
+  background: var(--icon-edit);
+  border: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+#fabMain:hover {
+  transform: scale(1.1);
+  background-color: #1976D2;
+}
+
+#fabMain i {
+  color: #fff;
+  font-size: 24px;
+}
+
+.fab-menu {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.fab.open .fab-menu {
+  display: flex;
+}
+
+.fab-menu button {
+  width: auto;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.fab-menu button:hover {
+  transform: scale(1.05);
+}
+
+.fab-menu button i {
+  color: #fff;
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.button-text {
+  color: #fff;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Specific button colors */
+#addSiteBtn {
+  background: var(--icon-add);
+}
+#addSiteBtn:hover {
+  background: #388E3C;
+}
+
+#toggleRemoveBtn {
+  background: var(--icon-delete);
+}
+#toggleRemoveBtn:hover {
+  background: #d32f2f;
+}
+
+#addLayoutBtn {
+  background: var(--icon-add);
+}
+#addLayoutBtn:hover {
+  background: #388E3C;
+}
+
+#themeMenuBtn {
+  background: var(--icon-info);
+}
+#themeMenuBtn:hover {
+  background: #FFA000;
+}
+
+#exportBtn {
+  background: var(--icon-download);
+}
+#exportBtn:hover {
+  background: #7B1FA2;
+}
+
+#importBtn {
+  background: var(--icon-download);
+}
+#importBtn:hover {
+  background: #7B1FA2;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 320px;
+  position: relative;
+}
+
+.modal-content h2 {
+  margin-bottom: 12px;
+}
+
+.modal-content form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid var(--fg);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.modal-content form button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: var(--icon-add);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.modal-content form button:hover {
+  background: #388E3C;
+}
+
+.modal-content form button i {
+  font-size: 20px;
+}
+
+.modal-content .close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--fg);
+}
+
+[role="tooltip"] {
+  position: absolute;
+  padding: 4px 8px;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

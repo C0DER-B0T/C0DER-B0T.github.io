@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Manage your favorite websites with custom layouts, drag‑and‑drop ordering, dark/light mode, export/import, undo removal and more." />
+  <meta name="theme-color" content="#111" />
+
+  <title>Favorite Websites Manager</title>
+  <link rel="canonical" href="https://yourdomain.com/fav-webs" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  
+  <script src="/node_modules/sortablejs/Sortable.min.js" defer></script>
+  <script src="script.js" type="module" defer></script>
+</head>
+<body data-theme="dark">
+  <header>
+    <h1>Favorite Websites</h1>
+    <div class="controls">
+      <label for="searchInput" class="visually-hidden">Search Websites</label>
+      <div class="search-wrapper">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input type="search" id="searchInput" placeholder="Search websites…" />
+      </div>
+    </div>
+    <nav id="layoutTabs" role="tablist" aria-label="Layout tabs"></nav>
+  </header>
+
+  <div class="layout-box" id="layoutBox">
+    <main id="cardsContainer" aria-live="polite"></main>
+  </div>
+
+  <div id="snackbar" role="alert">
+    Removed! <button id="undoBtn" title="Undo removal">↩️ Undo</button>
+  </div>
+
+  <div class="fab" id="fab" role="toolbar" aria-label="Edit actions">
+    <button id="fabMain" title="Edit options" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-edit" aria-hidden="true"></i>
+      <span class="button-text">✏️</span>
+    </button>
+    <div class="fab-menu" id="fabMenu" role="menu">
+      <button id="addSiteBtn" title="Add Website" role="menuitem">
+        <i class="fas fa-plus" aria-hidden="true"></i>
+        <span class="button-text">➕ Add New</span>
+      </button>
+      <button id="toggleRemoveBtn" title="Toggle Remove Mode" role="menuitem">
+        <i class="fas fa-minus" aria-hidden="true"></i>
+        <span class="button-text">➖ Remove Mode</span>
+      </button>
+      <button id="addLayoutBtn" title="Add New Layout" role="menuitem">
+        <i class="fas fa-layer-group" aria-hidden="true"></i>
+        <span class="button-text">📑 New Layout</span>
+      </button>
+      <button id="themeMenuBtn" title="Toggle Theme" role="menuitem">
+        <i class="fas fa-adjust" aria-hidden="true"></i>
+        <span class="button-text">🌓 Toggle Theme</span>
+      </button>
+      <button id="exportBtn" title="Export Layouts" role="menuitem">
+        <i class="fas fa-file-export" aria-hidden="true"></i>
+        <span class="button-text">💾 Export</span>
+      </button>
+      <button id="importBtn" title="Import Layouts" role="menuitem">
+        <i class="fas fa-file-import" aria-hidden="true"></i>
+        <span class="button-text">📥 Import</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="modal" id="siteModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2>Add Website</h2>
+      <form id="siteForm">
+        <input type="text" id="siteName" placeholder="Website Name" required />
+        <input type="url" id="siteURL" placeholder="https://example.com" required />
+        <button type="submit">
+          <i class="fas fa-plus" aria-hidden="true"></i>
+          <span>➕ Add Website</span>
+        </button>
+      </form>
+      <button class="close" data-close="siteModal" title="Close">❌</button>
+    </div>
+  </div>
+
+  <div class="modal" id="layoutModal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <h2>New Layout</h2>
+      <form id="layoutForm">
+        <input type="text" id="layoutName" placeholder="Layout Name" required />
+        <button type="submit">
+          <i class="fas fa-layer-group" aria-hidden="true"></i>
+          <span>📑 Create Layout</span>
+        </button>
+      </form>
+      <button class="close" data-close="layoutModal" title="Close">❌</button>
+    </div>
+  </div>
+
+  <input type="file" id="importFile" accept="application/json" style="display:none" />
+</body>
+</html>
